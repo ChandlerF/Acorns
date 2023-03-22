@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1708606482872032690}
   - component: {fileID: 114660950}
   - component: {fileID: 7880740410137379846}
+  - component: {fileID: -673664758375866866}
   m_Layer: 0
   m_Name: Building1
   m_TagString: Untagged
@@ -161,3 +162,19 @@ MonoBehaviour:
   Price: 2
   MaxCapacity: 1
   CurrentCapacity: 0
+--- !u!208 &-673664758375866866
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8264575823473300546}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.55, y: 0.55, z: 0.1}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

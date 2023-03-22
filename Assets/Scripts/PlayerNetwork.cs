@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerNetwork : NetworkBehaviour
@@ -20,7 +21,13 @@ public class PlayerNetwork : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (!IsOwner) this.enabled = false;
+        if (!IsOwner)
+        {
+            this.enabled = false;
+            return;
+        }
+
+        Camera.main.AddComponent<CameraFollow>().Player = transform;
     }
 
     void Update()

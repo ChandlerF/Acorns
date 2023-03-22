@@ -15,10 +15,12 @@ public class PlayerNetwork : NetworkBehaviour
 
     void Start()
     {
-        if(!IsOwner) this.enabled = false;
-
-
         _rb = GetComponent<Rigidbody2D>();
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        if (!IsOwner) this.enabled = false;
     }
 
     void Update()
@@ -58,3 +60,11 @@ public class PlayerNetwork : NetworkBehaviour
         SpawnBuildingClient(pos);
     }
 }
+
+
+
+
+/*
+            GetComponent<PlayerStats>().Gold.Value ++;
+            Debug.Log(OwnerClientId + " ; " + GetComponent<PlayerStats>().Gold.Value);
+*/

@@ -7,12 +7,12 @@ public class Buildings : MonoBehaviour
     public int Price = 2;
     public int CollisionCount = 0;
 
-    private void OnCollisionEnter2D(Collision2D col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
         CollisionCount++;
     }
 
-    private void OnCollisionExit2D(Collision2D col)
+    private void OnTriggerExit2D(Collider2D col)
     {
         CollisionCount--;
     }

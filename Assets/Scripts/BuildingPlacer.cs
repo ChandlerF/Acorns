@@ -28,7 +28,7 @@ public class BuildingPlacer : NetworkBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && GetComponent<PlayerStats>().Gold.Value >= _selectedBuilding.GetComponent<Buildings>().Price)
+        if (Input.GetMouseButtonDown(0) && GetComponent<PlayerStats>().Gold >= _selectedBuilding.GetComponent<Buildings>().Price)
         {
             SpawnGhostBuilding();
         }
@@ -44,7 +44,7 @@ public class BuildingPlacer : NetworkBehaviour
 
         if (Input.GetKeyDown(KeyCode.T))
         {
-            GetComponent<PlayerStats>().Gold.Value++;
+            GetComponent<PlayerStats>().Gold += 100;
         }
     }
 
@@ -63,7 +63,7 @@ public class BuildingPlacer : NetworkBehaviour
 
     private void PlaceBuilding()
     {
-        GetComponent<PlayerStats>().Gold.Value -=  _selectedBuilding.GetComponent<Buildings>().Price;
+        GetComponent<PlayerStats>().Gold -=  _selectedBuilding.GetComponent<Buildings>().Price;
 
 
 

@@ -24,6 +24,10 @@ public class GhostBuilding : Buildings
     
     public void Initialize(GameObject selectedBuilding)
     {
+        Vector3 spawnPos = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
+        transform.position = spawnPos;
+
+
         SpriteRenderer sr = transform.AddComponent<SpriteRenderer>();
         GetComponent<SpriteRenderer>().sprite  = selectedBuilding.GetComponent<SpriteRenderer>().sprite;
         //Need to set sorting layer

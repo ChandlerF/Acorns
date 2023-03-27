@@ -78,16 +78,16 @@ public class BuildingPlacer : NetworkBehaviour
 
 
 
-    public void SpawnBuildingClient(Vector3 pos)
-    {
-        GameObject spawnedBuilding = Instantiate(_selectedBuilding, pos, Quaternion.identity);
-        spawnedBuilding.GetComponent<NetworkObject>().Spawn(true);
-    }
-
-
     [ServerRpc]
     public void SpawnBuildingServerRpc(Vector3 pos)
     {
         SpawnBuildingClient(pos);
+    }
+
+
+    public void SpawnBuildingClient(Vector3 pos)
+    {
+        GameObject spawnedBuilding = Instantiate(_selectedBuilding, pos, Quaternion.identity);
+        spawnedBuilding.GetComponent<NetworkObject>().Spawn(true);
     }
 }

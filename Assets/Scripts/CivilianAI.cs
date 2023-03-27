@@ -1,20 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using static UnityEditor.PlayerSettings;
 
 public class CivilianAI : NetworkBehaviour
 {
-    private NavMeshAgent _agent;
-    void Start()
+    NavMeshAgent _agent;
+    public override async void OnNetworkSpawn()
     {
-        _agent = GetComponent<NavMeshAgent>();
+        if (IsServer)
+        {
+            _agent = transform.AddComponent<NavMeshAgent>();
+            _agent.speed = 3.5f;
+            _agent.updateRotation = false;
+            _agent.updateUpAxis = false;
+            
+        }
 
-        _agent.updateRotation = false;
-        _agent.updateUpAxis = false;
+        //SetTarget(transform.position);
+        if (!IsServer)
+            WarpAgentServerRpc();
+        else
+            WarpAgentClientRpc(transform.position);
     }
+
+
 
     void Update()
     {
@@ -22,14 +35,26 @@ public class CivilianAI : NetworkBehaviour
         {
             Vector3 spawnPos = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
 
+            SetTarget(spawnPos);
 
-            if (!IsServer)
-                SetTargetServerRpc(spawnPos);
-            else
-                SetTargetClient(spawnPos);
         }
     }
 
+
+
+    private void SetTarget(Vector3 pos)
+    {
+        if (!IsServer)
+            SetTargetServerRpc(pos);
+        else
+            SetTargetClient(pos);
+    }
+
+
+
+
+
+    
     [ServerRpc(RequireOwnership = false)]
     private void SetTargetServerRpc(Vector3 pos)
     {
@@ -39,5 +64,24 @@ public class CivilianAI : NetworkBehaviour
     private void SetTargetClient(Vector3 pos)
     {
         _agent.SetDestination(pos);
+    }
+
+
+
+
+
+
+
+
+    [ServerRpc(RequireOwnership = false)]
+    private void WarpAgentServerRpc()
+    {
+        WarpAgentClientRpc(transform.position);
+    }
+
+    [ClientRpc]
+    private void WarpAgentClientRpc(Vector3 pos)
+    {
+        _agent.Warp(pos);
     }
 }

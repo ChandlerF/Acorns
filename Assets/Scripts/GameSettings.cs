@@ -8,9 +8,11 @@ public class GameSettings : NetworkBehaviour
     public static GameSettings Instance;
 
 
-    public NetworkVariable<int> MacroClientID = new NetworkVariable<int>();
+    public NetworkVariable<int> MacroClientID = new NetworkVariable<int>(9, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
-    public NetworkVariable<int> MicroClientID = new NetworkVariable<int>();
+    public NetworkVariable<int> MicroClientID = new NetworkVariable<int>(9, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
+    public bool ClientHasJoined = false;
 
 
     private int ClientIDToTeam(string objectsTeam)
@@ -37,9 +39,18 @@ public class GameSettings : NetworkBehaviour
 
 
 
-
+    private void Awake()
+    {
+        SetInstance();
+    }
     public override void OnNetworkSpawn()
-    {if (GameSettings.Instance == null)
+    {
+        SetInstance();
+    }
+
+    private void SetInstance()
+    {
+        if (GameSettings.Instance == null)
             Instance = this;
         else Destroy(this.gameObject);
 

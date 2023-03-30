@@ -20,7 +20,6 @@ public class CivilianAI : NetworkBehaviour
             _agent.speed = 3.5f;
             _agent.updateRotation = false;
             _agent.updateUpAxis = false;
-            
         }
 
         //SetTarget(transform.position);

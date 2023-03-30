@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MacroClientID:
-    m_InternalValue: 7
+    m_InternalValue: 9
   MicroClientID:
-    m_InternalValue: 7
+    m_InternalValue: 9
 --- !u!114 &6095807044310856800
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,34 +8,24 @@ public class GameSettings : NetworkBehaviour
     public static GameSettings Instance;
 
 
-    //Macro = 1
     public NetworkVariable<int> MacroClientID = new NetworkVariable<int>();
 
-    //Micro = 2
     public NetworkVariable<int> MicroClientID = new NetworkVariable<int>();
 
 
-    private int ClientIDToTeam(string clientID)
+    private int ClientIDToTeam(string objectsTeam)
     {
-        return clientID =="Macro" ? 1 : 2;
+        return objectsTeam == "Macro" ? MacroClientID.Value : MicroClientID.Value;
     }
 
 
 
 
 
-    //Macro = 1  || Micro = 2           There is no Micro without Macro
-    public bool IsOnSameTeam(string clientID, int objectsTeam)
+    public bool IsOnSameTeam(int clientID, string objectsTeam)
     {
-        return objectsTeam == ClientIDToTeam(clientID);
+        return clientID == ClientIDToTeam(objectsTeam);
     }
-
-
-
-
-
-
-
 
 
 

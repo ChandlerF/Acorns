@@ -46,7 +46,7 @@ public class CivilianAI : NetworkBehaviour
 
     private void SetTarget(Vector3 pos)
     {
-        _sameTeam = GameSettings.Instance.IsOnSameTeam(transform.tag, (int)OwnerClientId);
+        _sameTeam = GameSettings.Instance.IsOnSameTeam((int)OwnerClientId, transform.tag);
 
         if (_sameTeam)
         {

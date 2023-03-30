@@ -9,6 +9,9 @@ using static UnityEditor.PlayerSettings;
 public class CivilianAI : NetworkBehaviour
 {
     NavMeshAgent _agent;
+    private bool _sameTeam = false;
+
+
     public override async void OnNetworkSpawn()
     {
         if (IsServer)
@@ -28,7 +31,6 @@ public class CivilianAI : NetworkBehaviour
     }
 
 
-
     void Update()
     {
         if(Input.GetMouseButtonDown(1))
@@ -44,10 +46,15 @@ public class CivilianAI : NetworkBehaviour
 
     private void SetTarget(Vector3 pos)
     {
-        if (!IsServer)
-            SetTargetServerRpc(pos);
-        else
-            SetTargetClient(pos);
+        _sameTeam = GameSettings.Instance.IsOnSameTeam(transform.tag, (int)OwnerClientId);
+
+        if (_sameTeam)
+        {
+            if (!IsServer)
+                SetTargetServerRpc(pos);
+            else
+                SetTargetClient(pos);
+        }
     }
 
 
